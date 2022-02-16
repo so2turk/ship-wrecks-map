@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "ship",
+    "wreck",
+    "map"
+  ],
+  "author": "so2turk",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
+  }
+}
