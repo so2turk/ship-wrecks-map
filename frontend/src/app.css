@@ -1,0 +1,16 @@
+.popupCard {
+  width: 50px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+label {
+  font-size: 5px;
+  width: max-content;
+  /* color: blue; */
+  border-bottom: 0.5px solid black;
+  /* margin: 0px 0; */
+  line-height: 8px;
+}
