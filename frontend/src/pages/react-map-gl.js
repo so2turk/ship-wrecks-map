@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Map, { Marker, Popup, NavigationControl, Layer } from 'react-map-gl'
+import Map, { Marker, Popup, NavigationControl } from 'react-map-gl'
 import { RoomSharp } from '@material-ui/icons'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -7,8 +7,8 @@ import('../app.css')
 
 function ReactMap() {
   const [viewState, setViewState] = useState({
-    latitude: -14.270972,
-    longitude: -170.7,
+    latitude: 40.612739,
+    longitude: -74.045105,
     zoom: 10
   });
   const [ shipWrecks, setShipWrecks ] = useState([])
@@ -19,9 +19,15 @@ function ReactMap() {
 
   }, [])
 
+  const variables = {
+      filters: {
+        'depth': [1,10]
+      }
+  }
+
   const getShipWrecks = async () => {
     try {
-      const res = await axios.get('/ships')
+      const res = await axios.post('/ships', variables)
       setShipWrecks(res.data)
     } catch(err) {
       console.log(err)
@@ -79,6 +85,7 @@ function ReactMap() {
                     <span><label>Chart:</label> {shipWreck.chart}</span>
                     <label>Coordinates:</label>
                     <span>Lat:{shipWreck.latdec} / Long:{shipWreck.londec}</span>
+                    <span><label>Total Wrecks:</label> {shipWrecks.length}</span>
                   </div>
                 </Popup>
             )}
@@ -87,9 +94,6 @@ function ReactMap() {
         <NavigationControl 
           position='bottom-right'
           showCompass={false}
-        />
-        <Layer
-          icon-allow-overlap={true}
         />
       </Map>
     </div>
