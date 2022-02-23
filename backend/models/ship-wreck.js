@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const ShipWreck = new mongoose.Schema({
+const shipWreckSchema = new mongoose.Schema({
   recrd : String,
   vesslterms : String,
   feature_type : String,
@@ -16,4 +16,4 @@ const ShipWreck = new mongoose.Schema({
   coordinates : []
 }, { collection : 'shipwrecks' });
 
-export default mongoose.model('Ship', ShipWreck)
+export default mongoose.model('ShipWreck', shipWreckSchema)
