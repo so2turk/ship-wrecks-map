@@ -11,3 +11,12 @@ label {
   width: max-content;
   border-bottom: 0.5px solid black;
 }
+
+.marker {
+  background-image: url("../public/p.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 30px;
+  cursor: pointer;
+}

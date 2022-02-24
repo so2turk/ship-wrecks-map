@@ -10,6 +10,7 @@ const MapBox = () => {
   const [lat, setLat] = useState(40.712776)
   const [lang, setLang] = useState(-74.005974)
   const [zoom, setZoom] = useState(4)
+  const [ shipWrecks, setShipWrecks ] = useState([])
 
   useEffect(() => {
     const Map = new MapBoxGl.Map({
@@ -22,9 +23,35 @@ const MapBox = () => {
     Map.addControl(new MapBoxGl.NavigationControl(), 'bottom-right')
     Map.addControl(new MapBoxGl.FullscreenControl());
 
+    getShipWrecks()
+
+    shipWrecks.forEach(ship => {
+      const el = document.createElement('div');
+      el.className = 'marker';
+
+      new MapBoxGl.Marker(el)
+          .setLngLat(ship.coordinates)
+          .addTo(Map)
+    });
+
     return () => Map.remove()
   }, [])
 
+  const variables = {
+    filters: {
+      'depth': [100,2000]
+    }
+  }
+
+  const getShipWrecks = async () => {
+    try {
+      const res = await axios.post('/ships', variables)
+      setShipWrecks(res.data)
+    } catch(err) {
+      console.log(err)
+    }
+  }
+  
   return (
     <div >
         <div 
