@@ -31,6 +31,19 @@ const MapBox = () => {
 
       new MapBoxGl.Marker(el)
           .setLngLat(ship.coordinates)
+          .setPopup(
+            new MapBoxGl.Popup({ offset: 15 })
+            .setHTML(
+                `<div className='popupCard'>
+                  <span><label>Fature:</label> ${ship.feature_type}</span><br>
+                  <span><label>Depth:</label> ${ship.depth}</span><br>
+                  <span><label>Chart:</label> ${ship.chart}</span><br>
+                  <label>Coordinates:</label><br>
+                  <span>Lat:${ship.latdec} / Long:${ship.londec}</span><br>
+                  <span><label>Total Wrecks:</label> ${shipWrecks.length}</span>
+                </div>`
+            )
+          )
           .addTo(Map)
     });
 

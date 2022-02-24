@@ -3,7 +3,7 @@
   height: 120px;
   display: flex;
   flex-direction: column;
-  justify-content:left;
+  justify-content: left;
 }
 
 label {
