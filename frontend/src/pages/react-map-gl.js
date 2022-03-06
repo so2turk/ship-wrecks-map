@@ -84,6 +84,25 @@ function ReactMap() {
                 }} 
               />
             </Marker>
+            {shipWreck2.properties.F__OBJECTID === selectedShipId && (
+                <Popup
+                  key={shipWreck2.properties.F__OBJECTID}
+                  longitude={shipWreck2.geometry.coordinates[0]}
+                  latitude={shipWreck2.geometry.coordinates[1]}
+                  anchor="top"
+                  closeButton={true}
+                  closeOnClick={false}
+                >
+                  <div className='popupCard'>
+                    <span><label>Vessel:</label> {shipWreck2.properties.Vessel}</span>
+                    <span><label>Depth:</label> {shipWreck2.properties.Depth}</span>
+                    <span><label>Lost Year:</label> {shipWreck2.properties.LostYR}</span>
+                    <label>Coordinates:</label>
+                    <span>Lat:{shipWreck2.properties.LatitudeDecimalDegrees} / Long:{shipWreck2.properties.LongitudeDecimalDegrees}</span>
+                  <span><label>Photos:</label><a href={shipWreck2.properties.Photo1}> Ship </a>-<a href={shipWreck2.properties.ShipwreckPhoto}> Wreck</a></span>
+                  </div>
+                </Popup>
+            )}
           </>
         ))}
         { shipWrecks.map(shipWreck => (
