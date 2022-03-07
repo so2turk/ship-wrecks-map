@@ -41,11 +41,18 @@ function ReactMap() {
   const getShipWrecks2 = async () => {
     try {
       const res2 = await axios.get(michigan)
-      setShipWrecks2(res2.data)
-
+      setShipWrecks2(filterDepth(res2.data))
+      
     } catch(err) {
       console.log(err)
     }
+  }
+
+  const filterDepth = (ships) => {
+    ships.features.map(ship => ship.properties.Depth=parseInt(ship.properties.Depth))
+    return ships.features
+                .filter(s => s.properties.Depth >= variables.filters.depth[0] &&
+                             s.properties.Depth <= variables.filters.depth[1])
   }
 
   const handleMarkerSelect = (id) => {
@@ -68,7 +75,7 @@ function ReactMap() {
         doubleClickZoom
         scrollZoom
       >
-        { shipWrecks2 && shipWrecks2.features.map(shipWreck2 => (
+        { shipWrecks2 && shipWrecks2.map(shipWreck2 => (
           <>
             <Marker 
               longitude={shipWreck2.geometry.coordinates[0]} 
