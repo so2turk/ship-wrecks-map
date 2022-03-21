@@ -16,6 +16,9 @@ function ReactMap() {
   const [ shipWrecks, setShipWrecks ] = useState([])
   const [ selectedShipId, setSelectedShipId ] = useState(null)
   const [ shipWrecks2, setShipWrecks2 ] = useState(null)
+  const [filteredSW, setFilteredSW] = useState(null)
+  const [filteredSW2, setFilteredSW2] = useState(null)
+  const [depth, setDepth] = useState([10, 100])
   
   useEffect(() => {
     getShipWrecks()
@@ -23,15 +26,21 @@ function ReactMap() {
 
   }, [])
 
+  useEffect(() => {
+    if(shipWrecks) setFilteredSW(filterDepth(shipWrecks))
+    if(shipWrecks2) setFilteredSW2(filterDepth2(shipWrecks2))
+
+  }, [shipWrecks, shipWrecks2, depth])
+
   const variables = {
       filters: {
-        'depth': [1,10]
+        'depth': depth
       }
   }
 
   const getShipWrecks = async () => {
     try {
-      const res = await axios.post('/ships', variables)
+      const res = await axios.post('/ships')
       setShipWrecks(res.data)
 
     } catch(err) {
@@ -41,7 +50,7 @@ function ReactMap() {
   const getShipWrecks2 = async () => {
     try {
       const res2 = await axios.get(michigan)
-      setShipWrecks2(filterDepth(res2.data))
+      setShipWrecks2(res2.data)
       
     } catch(err) {
       console.log(err)
@@ -49,6 +58,11 @@ function ReactMap() {
   }
 
   const filterDepth = (ships) => {
+    return ships.filter(s => s.depth >= variables.filters.depth[0] &&
+                             s.depth <= variables.filters.depth[1])
+  }
+
+  const filterDepth2 = (ships) => {
     ships.features.map(ship => ship.properties.Depth=parseInt(ship.properties.Depth))
     return ships.features
                 .filter(s => s.properties.Depth >= variables.filters.depth[0] &&
@@ -75,7 +89,7 @@ function ReactMap() {
         doubleClickZoom
         scrollZoom
       >
-        { shipWrecks2 && shipWrecks2.map(shipWreck2 => (
+        { filteredSW2 && filteredSW2.map(shipWreck2 => (
           <>
             <Marker 
               longitude={shipWreck2.geometry.coordinates[0]} 
@@ -112,7 +126,7 @@ function ReactMap() {
             )}
           </>
         ))}
-        { shipWrecks.map(shipWreck => (
+        { filteredSW && filteredSW.map(shipWreck => (
           <>
             <Marker 
               longitude={shipWreck.londec} 
