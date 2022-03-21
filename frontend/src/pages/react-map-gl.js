@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Map, { Marker, Popup, NavigationControl } from 'react-map-gl'
-import { RoomSharp } from '@material-ui/icons'
+import { RoomSharp } from '@mui/icons-material'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import('../app.css')
