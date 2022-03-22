@@ -9,6 +9,8 @@ const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bc
 
 function ReactMap() {
   const [viewState, setViewState] = useState({
+    width: "100%",
+    // height: "100vh",
     latitude: 42.7860064,
     longitude: -80.0417,
     zoom: 4
@@ -83,7 +85,7 @@ function ReactMap() {
       <Map
         {...viewState}
         onMove={evt => setViewState(evt.viewState)}
-        style={{width: '100%', height: '100vh'}}
+        style={{height: '100vh'}}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         transitionDuration="200"
