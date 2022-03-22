@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { useRef, useState } from 'react'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import './register.css'
 
-const Register = () => {
+const Register = ({setShowReg}) => {
   const [regSuccess, setRegSucces] = useState(false)
   const [regFailure, setRegFailure] = useState(false)
   const emailRef = useRef()
@@ -60,6 +61,7 @@ const Register = () => {
           Registration is failed
         </span>
       }
+      <HighlightOffIcon className='cancel' onClick={() => setShowReg(false)}/>
     </div>
   )
 }

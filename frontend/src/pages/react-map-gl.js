@@ -23,6 +23,8 @@ function ReactMap() {
   const [filteredSW2, setFilteredSW2] = useState(null)
   const [depth, setDepth] = useState([10, 100])
   const [user, setUser] = useState('')
+  const [showReg, setShowReg] = useState(false)
+
   
   useEffect(() => {
     getShipWrecks()
@@ -179,11 +181,14 @@ function ReactMap() {
             <>
               <div className="log-res">
                 <button className="login button">Login</button>
-                <button className="register button">Register</button>
+                <button className="register button" onClick={() => {
+                  setShowReg(!showReg)
+                }}>Register</button>
               </div>
             </>
           )
         }
+        {showReg ? <Register setShowReg={setShowReg} /> : null}
       </Map>
     </div>
   );
