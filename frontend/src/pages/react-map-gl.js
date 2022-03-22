@@ -3,6 +3,7 @@ import Map, { Marker, Popup, NavigationControl } from 'react-map-gl'
 import { RoomSharp } from '@mui/icons-material'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import Register from '../components/register/register'
 import('../app.css')
 
 const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bca8a706e_0.geojson'

@@ -5,18 +5,18 @@ import bcrypt from 'bcrypt'
 const router = express.Router()
 const saltRounds = 10
 
-router.post('/register', async(req, res) => {
+router.post('/register', async (req, res) => {
   try{
     const salt = await bcrypt.genSalt(saltRounds)
     const hashedPass = await bcrypt.hash(req.body.password, salt)
 
-    const userToCreate = new User({
+    const newUser = new User({
       email: req.body.email,
       userName: req.body.userName,
       password: hashedPass
     })
 
-    const createdUser = await User.create(userToCreate)
+    const createdUser = await User.create(newUser)
     res.status(200).json({ 
       _id: createdUser._id, 
       userName: createdUser.userName 
