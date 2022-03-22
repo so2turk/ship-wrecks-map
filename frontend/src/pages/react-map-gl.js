@@ -19,6 +19,7 @@ function ReactMap() {
   const [filteredSW, setFilteredSW] = useState(null)
   const [filteredSW2, setFilteredSW2] = useState(null)
   const [depth, setDepth] = useState([10, 100])
+  const [user, setUser] = useState('')
   
   useEffect(() => {
     getShipWrecks()
@@ -167,6 +168,19 @@ function ReactMap() {
           position='bottom-right'
           showCompass={false}
         />
+        {user ? (
+          <div>
+            <button className="logout button">Logout</button>
+          </div>
+          ) : (
+            <>
+              <div className="log-res">
+                <button className="login button">Login</button>
+                <button className="register button">Register</button>
+              </div>
+            </>
+          )
+        }
       </Map>
     </div>
   );

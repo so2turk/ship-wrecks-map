@@ -1,22 +1,48 @@
 .popupCard {
-  width: 300px;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
+	width: 300px;
+	height: 120px;
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
 }
 
 label {
-  font-size: 12px;
-  width: max-content;
-  border-bottom: 0.5px solid black;
+	font-size: 12px;
+	width: max-content;
+	border-bottom: 0.5px solid black;
 }
 
 .marker {
-  background-image: url("../public/p.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 25px;
-  height: 30px;
-  cursor: pointer;
+	background-image: url('../public/p.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 30px;
+	cursor: pointer;
+}
+
+.log-res,
+.logout {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.button {
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: white;
+	cursor: pointer;
+}
+
+.login {
+	background-color: green;
+	margin-right: 5px;
+}
+.register {
+	background-color: cadetblue;
+}
+.logout {
+	background-color: orange;
 }
