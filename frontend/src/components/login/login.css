@@ -1,0 +1,31 @@
+.loginContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+
+	width: 150px;
+	height: 80px;
+
+	padding: 15px;
+	border-radius: 20;
+	background-color: green;
+}
+
+.logo {
+	background-image: url('../../../public/sw.svg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 50px;
+}
+
+.failure {
+	color: red;
+}
