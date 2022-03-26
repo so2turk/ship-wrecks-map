@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import './login.css'
 
-const Login = ({setShowLog, setUser}) => {
+const Login = ({setShowLog, setUser, lstorage}) => {
   const [logFailure, setLogFailure] = useState(false)
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -19,6 +19,7 @@ const Login = ({setShowLog, setUser}) => {
     try {
       const res = await axios.post('/users/login', userToLog)
       setUser(res.data.userName)
+      lstorage.setItem('user', res.data.userName)
       setShowLog(false)
     }
     catch (err) {

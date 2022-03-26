@@ -23,7 +23,8 @@ function ReactMap() {
   const [filteredSW, setFilteredSW] = useState(null)
   const [filteredSW2, setFilteredSW2] = useState(null)
   const [depth, setDepth] = useState([10, 100])
-  const [user, setUser] = useState('')
+  const lstorage = window.localStorage
+  const [user, setUser] = useState(lstorage.getItem('user'))
   const [showReg, setShowReg] = useState(false)
   const [showLog, setShowLog] = useState(false)
 
@@ -195,7 +196,7 @@ function ReactMap() {
           )
         }
         {showReg ? <Register setShowReg={setShowReg} /> : null}
-        {showLog ? <Login setShowLog={setShowLog} setUser={setUser}/> : null}
+        {showLog ? <Login setShowLog={setShowLog} setUser={setUser} lstorage={lstorage}/> : null}
       </Map>
     </div>
   );
