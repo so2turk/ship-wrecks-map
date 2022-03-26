@@ -25,6 +25,7 @@ function ReactMap() {
   const [depth, setDepth] = useState([10, 100])
   const [user, setUser] = useState('')
   const [showReg, setShowReg] = useState(false)
+  const [showLog, setShowLog] = useState(false)
 
   
   useEffect(() => {
@@ -181,16 +182,20 @@ function ReactMap() {
           ) : (
             <>
               <div className="log-res">
-                <button className="login button">Login</button>
+                <button className="login button" onClick={() => {
+                  setShowLog(!showLog)
+                  setShowReg(false)
+                }}>Login</button>
                 <button className="register button" onClick={() => {
                   setShowReg(!showReg)
+                  setShowLog(false)
                 }}>Register</button>
               </div>
             </>
           )
         }
         {showReg ? <Register setShowReg={setShowReg} /> : null}
-        <Login setUser={setUser}/>
+        {showLog ? <Login setShowLog={setShowLog} setUser={setUser}/> : null}
       </Map>
     </div>
   );

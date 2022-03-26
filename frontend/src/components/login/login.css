@@ -29,3 +29,10 @@
 .failure {
 	color: red;
 }
+
+.cancel {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 15px;
+}

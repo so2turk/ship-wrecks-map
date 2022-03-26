@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { useRef, useState } from 'react'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import './login.css'
 
-const Login = ({setUser}) => {
+const Login = ({setShowLog, setUser}) => {
   const [logFailure, setLogFailure] = useState(false)
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -18,6 +19,7 @@ const Login = ({setUser}) => {
     try {
       const res = await axios.post('/users/login', userToLog)
       setUser(res.data.userName)
+      setShowLog(false)
     }
     catch (err) {
       console.log(err)
@@ -46,6 +48,7 @@ const Login = ({setUser}) => {
           Login is failed
         </span>
       }
+      <HighlightOffIcon className='cancel' onClick={() => setShowLog(false)}/>
     </div>
   )
 }
