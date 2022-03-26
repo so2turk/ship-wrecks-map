@@ -86,6 +86,11 @@ function ReactMap() {
     }
   }
 
+  const handleLogout = () => {
+    setUser(null)
+    lstorage.removeItem('user')
+  }
+
   return (
     <div>
       <Map
@@ -178,7 +183,10 @@ function ReactMap() {
         />
         {user ? (
           <div>
-            <button className="logout button">Logout</button>
+            <button
+              className="logout button"
+              onClick={handleLogout}>Logout
+            </button>
           </div>
           ) : (
             <>
