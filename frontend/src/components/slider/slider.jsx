@@ -1,14 +1,14 @@
 import { Box, Slider } from "@mui/material"
 import './slider.css'
 
-const DepthSlider = () => {
+const DepthSlider = ({ depth, setDepth }) => {
 
   return (
     <div className="slider">
       <Box sx={{ height: 700 }}>
         <Slider
           valueLabelDisplay="on" 
-          value={[100, 1000]}
+          value={depth}
           min={0}
           max={2000}
           sx={{
@@ -18,6 +18,7 @@ const DepthSlider = () => {
             },
           }}
           orientation="vertical"
+          onChange={e => setDepth(e.target.value)}
         />
       </Box>
     </div>

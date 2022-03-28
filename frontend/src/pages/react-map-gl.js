@@ -5,6 +5,7 @@ import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Register from '../components/register/register'
 import Login from '../components/login/login'
+import DepthSlider from '../components/slider/slider'
 import('../app.css')
 
 const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bca8a706e_0.geojson'
@@ -22,7 +23,7 @@ function ReactMap() {
   const [ shipWrecks2, setShipWrecks2 ] = useState(null)
   const [filteredSW, setFilteredSW] = useState(null)
   const [filteredSW2, setFilteredSW2] = useState(null)
-  const [depth, setDepth] = useState([10, 100])
+  const [depth, setDepth] = useState([100, 1000])
   const lstorage = window.localStorage
   const [user, setUser] = useState(lstorage.getItem('user'))
   const [showReg, setShowReg] = useState(false)
@@ -178,7 +179,7 @@ function ReactMap() {
           </>
         ))}
         <NavigationControl 
-          position='bottom-right'
+          position='bottom-left'
           showCompass={false}
         />
         {user ? (
@@ -187,6 +188,7 @@ function ReactMap() {
               className="logout button"
               onClick={handleLogout}>Logout
             </button>
+            <DepthSlider depth={depth} setDepth={setDepth} />
           </div>
           ) : (
             <>
