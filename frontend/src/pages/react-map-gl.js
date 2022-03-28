@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import Register from '../components/register/register'
 import Login from '../components/login/login'
 import DepthSlider from '../components/slider/slider'
+import Logo from '../components/logo/logo'
 import('../app.css')
 
 const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bca8a706e_0.geojson'
@@ -202,6 +203,7 @@ function ReactMap() {
                   setShowLog(false)
                 }}>Register</button>
               </div>
+              <Logo />
             </>
           )
         }
