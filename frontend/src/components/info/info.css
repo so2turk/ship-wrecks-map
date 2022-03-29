@@ -1,0 +1,30 @@
+.info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	position: absolute;
+	top: 50px;
+	right: 10px;
+
+	/* width: 50px; */
+	/* background-color: rgba(22, 141, 5, 0.5); */
+}
+
+.checkbox {
+	display: flex;
+	align-items: center;
+	/* margin-right: 15px; */
+}
+
+label {
+	margin-right: 5px;
+}
+
+.logo {
+	background-image: url('../../../public/sw.svg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+}

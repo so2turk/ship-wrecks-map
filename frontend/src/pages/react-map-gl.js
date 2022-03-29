@@ -7,6 +7,7 @@ import Register from '../components/register/register'
 import Login from '../components/login/login'
 import DepthSlider from '../components/slider/slider'
 import Logo from '../components/logo/logo'
+import Info from '../components/info/info'
 import('../app.css')
 
 const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bca8a706e_0.geojson'
@@ -14,7 +15,6 @@ const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bc
 function ReactMap() {
   const [viewState, setViewState] = useState({
     width: "100%",
-    // height: "100vh",
     latitude: 42.7860064,
     longitude: -80.0417,
     zoom: 4
@@ -29,7 +29,8 @@ function ReactMap() {
   const [user, setUser] = useState(lstorage.getItem('user'))
   const [showReg, setShowReg] = useState(false)
   const [showLog, setShowLog] = useState(false)
-
+  const [showMongoDB, setShowMongoDB] = useState(false)
+  const [showMichigan, setShowMichigan] = useState(false)
   
   useEffect(() => {
     getShipWrecks()
@@ -91,6 +92,8 @@ function ReactMap() {
   const handleLogout = () => {
     setUser(null)
     lstorage.removeItem('user')
+    setShowMongoDB(false)
+    setShowMichigan(false)
   }
 
   return (
@@ -105,7 +108,7 @@ function ReactMap() {
         doubleClickZoom
         scrollZoom
       >
-        { filteredSW2 && filteredSW2.map(shipWreck2 => (
+        { showMichigan && filteredSW2 && filteredSW2.map(shipWreck2 => (
           <>
             <Marker 
               longitude={shipWreck2.geometry.coordinates[0]} 
@@ -142,7 +145,7 @@ function ReactMap() {
             )}
           </>
         ))}
-        { filteredSW && filteredSW.map(shipWreck => (
+        { showMongoDB && filteredSW && filteredSW.map(shipWreck => (
           <>
             <Marker 
               longitude={shipWreck.londec} 
@@ -190,6 +193,12 @@ function ReactMap() {
               onClick={handleLogout}>Logout
             </button>
             <DepthSlider depth={depth} setDepth={setDepth} />
+            <Info
+              showMongoDB={showMongoDB}
+              setShowMongoDB={setShowMongoDB}
+              showMichigan={showMichigan}
+              setShowMichigan={setShowMichigan}
+            />
           </div>
           ) : (
             <>
