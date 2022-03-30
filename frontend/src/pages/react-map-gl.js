@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Map, { Popup, NavigationControl } from 'react-map-gl'
+import Map, { NavigationControl } from 'react-map-gl'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Register from '../components/register/register'
@@ -70,23 +70,21 @@ function ReactMap() {
   }
 
   const filterDepth = (ships) => {
-    return ships.filter(s => s.depth >= variables.filters.depth[0] &&
-                             s.depth <= variables.filters.depth[1])
+    return ships.filter(
+			(s) => 
+				s.depth >= variables.filters.depth[0] &&
+        s.depth <= variables.filters.depth[1])
   }
 
   const filterDepth2 = (ships) => {
-    ships.features.map(ship => ship.properties.Depth=parseInt(ship.properties.Depth))
-    return ships.features
-                .filter(s => s.properties.Depth >= variables.filters.depth[0] &&
-                             s.properties.Depth <= variables.filters.depth[1])
-  }
-
-  const handleMarkerSelect = (id) => {
-    try{
-      setSelectedShipId(id)
-    } catch(err){
-      console.log(err)
-    }
+    ships.features.map(
+			(ship) => ship.properties.Depth = parseInt(ship.properties.Depth)
+		)
+    return ships.features.filter(
+			(s) => 
+				s.properties.Depth >= variables.filters.depth[0] &&
+        s.properties.Depth <= variables.filters.depth[1]
+		)
   }
 
   const handleLogout = () => {
@@ -108,62 +106,28 @@ function ReactMap() {
         doubleClickZoom
         scrollZoom
       >
-        { showMichigan && filteredSW2 && filteredSW2.map(shipWreck2 => (
-          <>
-            <MarkerPopup
+        {showMichigan && 
+					filteredSW2 && 
+					filteredSW2.map(shipWreck2 => (
+						<MarkerPopup
 							db="michigan"
 							sw={shipWreck2}
+							selectedShipId={selectedShipId}
+							setSelectedShipId={setSelectedShipId}
 							viewState={viewState}
 						/>
-            {shipWreck2.properties.F__OBJECTID === selectedShipId && (
-                <Popup
-                  key={shipWreck2.properties.F__OBJECTID}
-                  longitude={shipWreck2.geometry.coordinates[0]}
-                  latitude={shipWreck2.geometry.coordinates[1]}
-                  anchor="top"
-                  closeButton={true}
-                  closeOnClick={false}
-                >
-                  <div className='popupCard'>
-                    <span><label>Vessel:</label> {shipWreck2.properties.Vessel}</span>
-                    <span><label>Depth:</label> {shipWreck2.properties.Depth}</span>
-                    <span><label>Lost Year:</label> {shipWreck2.properties.LostYR}</span>
-                    <label>Coordinates:</label>
-                    <span>Lat:{shipWreck2.properties.LatitudeDecimalDegrees} / Long:{shipWreck2.properties.LongitudeDecimalDegrees}</span>
-                  <span><label>Photos:</label><a href={shipWreck2.properties.Photo1}> Ship </a>-<a href={shipWreck2.properties.ShipwreckPhoto}> Wreck</a></span>
-                  </div>
-                </Popup>
-            )}
-          </>
-        ))}
-        { showMongoDB && filteredSW && filteredSW.map(shipWreck => (
-          <>
+					))}
+        {showMongoDB && 
+					filteredSW && 
+					filteredSW.map(shipWreck => (
 						<MarkerPopup
 							db="mongoDB"
 							sw={shipWreck}
+							selectedShipId={selectedShipId}
+							setSelectedShipId={setSelectedShipId}
 							viewState={viewState}
 						/>
-            {shipWreck._id === selectedShipId && (
-                <Popup
-                  key={shipWreck._id}
-                  longitude={shipWreck.londec}
-                  latitude={shipWreck.latdec}
-                  anchor="top"
-                  closeButton={true}
-                  closeOnClick={false}
-                >
-                  <div className='popupCard'>
-                    <span><label>Fature:</label> {shipWreck.feature_type}</span>
-                    <span><label>Depth:</label> {shipWreck.depth}</span>
-                    <span><label>Chart:</label> {shipWreck.chart}</span>
-                    <label>Coordinates:</label>
-                    <span>Lat:{shipWreck.latdec} / Long:{shipWreck.londec}</span>
-                    <span><label>Total Wrecks:</label> {shipWrecks.length}</span>
-                  </div>
-                </Popup>
-            )}
-          </>
-        ))}
+					))}
         <NavigationControl 
           position='bottom-left'
           showCompass={false}
