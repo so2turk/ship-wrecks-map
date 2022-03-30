@@ -19,9 +19,9 @@ function ReactMap() {
 		longitude: -3.74922,
 		zoom: 1.8,
   })
-  const [ shipWrecks, setShipWrecks ] = useState([])
-  const [ selectedShipId, setSelectedShipId ] = useState(null)
-  const [ shipWrecks2, setShipWrecks2 ] = useState(null)
+  const [shipWrecks, setShipWrecks] = useState([])
+  const [selectedShipId, setSelectedShipId] = useState(null)
+  const [shipWrecks2, setShipWrecks2] = useState(null)
   const [filteredSW, setFilteredSW] = useState(null)
   const [filteredSW2, setFilteredSW2] = useState(null)
   const [depth, setDepth] = useState([100, 1000])
@@ -35,13 +35,11 @@ function ReactMap() {
   useEffect(() => {
     getShipWrecks()
     getShipWrecks2()
-
   }, [])
 
   useEffect(() => {
     if(shipWrecks) setFilteredSW(filterDepth(shipWrecks))
     if(shipWrecks2) setFilteredSW2(filterDepth2(shipWrecks2))
-
   }, [shipWrecks, shipWrecks2, depth])
 
   const variables = {
@@ -54,7 +52,6 @@ function ReactMap() {
     try {
       const res = await axios.post('/ships')
       setShipWrecks(res.data)
-
     } catch(err) {
       console.log(err)
     }
@@ -63,7 +60,6 @@ function ReactMap() {
     try {
       const res2 = await axios.get(michigan)
       setShipWrecks2(res2.data)
-      
     } catch(err) {
       console.log(err)
     }
@@ -103,8 +99,8 @@ function ReactMap() {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         transitionDuration="200"
-        doubleClickZoom
-        scrollZoom
+        doubleClickZoom={user}
+        scrollZoom={user}
       >
         {showMichigan && 
 					filteredSW2 && 
@@ -149,21 +145,33 @@ function ReactMap() {
           ) : (
             <>
               <div className="log-res">
-                <button className="login button" onClick={() => {
-                  setShowLog(!showLog)
-                  setShowReg(false)
-                }}>Login</button>
-                <button className="register button" onClick={() => {
-                  setShowReg(!showReg)
-                  setShowLog(false)
-                }}>Register</button>
+                <button 
+									className="login button" 
+									onClick={() => {
+										setShowLog(!showLog)
+										setShowReg(false)
+                	}}
+								>Login</button>
+                <button 
+									className="register button" 
+									onClick={() => {
+										setShowReg(!showReg)
+										setShowLog(false)
+                	}}
+								>Register</button>
               </div>
               <Logo />
             </>
           )
         }
         {showReg ? <Register setShowReg={setShowReg} /> : null}
-        {showLog ? <Login setShowLog={setShowLog} setUser={setUser} lstorage={lstorage}/> : null}
+        {showLog ? (
+					<Login 
+						setShowLog={setShowLog} 
+						setUser={setUser} 
+						lstorage={lstorage}
+					/>
+				) : null}
       </Map>
     </div>
   );
