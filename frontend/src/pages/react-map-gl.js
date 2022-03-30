@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Map, { Marker, Popup, NavigationControl } from 'react-map-gl'
-import { RoomSharp } from '@mui/icons-material'
+import Map, { Popup, NavigationControl } from 'react-map-gl'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Register from '../components/register/register'
@@ -8,6 +7,7 @@ import Login from '../components/login/login'
 import DepthSlider from '../components/slider/slider'
 import Logo from '../components/logo/logo'
 import Info from '../components/info/info'
+import MarkerPopup from '../components/marker-popup/marker-popup'
 import('../app.css')
 
 const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bca8a706e_0.geojson'
@@ -15,9 +15,9 @@ const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bc
 function ReactMap() {
   const [viewState, setViewState] = useState({
     width: "100%",
-    latitude: 42.7860064,
-    longitude: -80.0417,
-    zoom: 4
+		latitude: 40.463669,
+		longitude: -3.74922,
+		zoom: 1.8,
   })
   const [ shipWrecks, setShipWrecks ] = useState([])
   const [ selectedShipId, setSelectedShipId ] = useState(null)
@@ -110,20 +110,11 @@ function ReactMap() {
       >
         { showMichigan && filteredSW2 && filteredSW2.map(shipWreck2 => (
           <>
-            <Marker 
-              longitude={shipWreck2.geometry.coordinates[0]} 
-              latitude={shipWreck2.geometry.coordinates[1]} 
-              anchor="bottom"
-            >
-              <RoomSharp 
-                onClick={() => handleMarkerSelect(shipWreck2.properties.F__OBJECTID)}
-                style={{ 
-                  color: 'red', 
-                  fontSize: viewState.zoom * 5,
-                  cursor: "pointer"
-                }} 
-              />
-            </Marker>
+            <MarkerPopup
+							db="michigan"
+							sw={shipWreck2}
+							viewState={viewState}
+						/>
             {shipWreck2.properties.F__OBJECTID === selectedShipId && (
                 <Popup
                   key={shipWreck2.properties.F__OBJECTID}
@@ -147,20 +138,11 @@ function ReactMap() {
         ))}
         { showMongoDB && filteredSW && filteredSW.map(shipWreck => (
           <>
-            <Marker 
-              longitude={shipWreck.londec} 
-              latitude={shipWreck.latdec} 
-              anchor="bottom"
-            >
-              <RoomSharp 
-                onClick={() => handleMarkerSelect(shipWreck._id)}
-                style={{ 
-                  color: 'black', 
-                  fontSize: viewState.zoom * 5,
-                  cursor: "pointer"
-                }} 
-              />
-            </Marker>
+						<MarkerPopup
+							db="mongoDB"
+							sw={shipWreck}
+							viewState={viewState}
+						/>
             {shipWreck._id === selectedShipId && (
                 <Popup
                   key={shipWreck._id}
