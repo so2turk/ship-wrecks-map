@@ -7,10 +7,10 @@ const DepthSlider = ({ depth, setDepth }) => {
     <div className="slider">
       <Box sx={{ height: 700 }}>
         <Slider
-          valueLabelDisplay="on" 
+          valueLabelDisplay="auto" 
           value={depth}
-          min={0}
-          max={2000}
+          min={-2000}
+          max={0}
           sx={{
             color: 'red',
             '& input[type="range"]': {

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Map, { NavigationControl } from 'react-map-gl'
 import axios from 'axios'
-import 'mapbox-gl/dist/mapbox-gl.css'
 import Register from '../components/register/register'
 import Login from '../components/login/login'
 import DepthSlider from '../components/slider/slider'
 import Logo from '../components/logo/logo'
 import Info from '../components/info/info'
 import MarkerPopup from '../components/marker-popup/marker-popup'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import('../app.css')
 
 const michigan = 'https://opendata.arcgis.com/datasets/9544348973ac4d9e9a77007bca8a706e_0.geojson'
@@ -24,7 +24,7 @@ function ReactMap() {
   const [shipWrecks2, setShipWrecks2] = useState(null)
   const [filteredSW, setFilteredSW] = useState(null)
   const [filteredSW2, setFilteredSW2] = useState(null)
-  const [depth, setDepth] = useState([100, 1000])
+  const [depth, setDepth] = useState([-1000, -100])
   const lstorage = window.localStorage
   const [user, setUser] = useState(lstorage.getItem('user'))
   const [showReg, setShowReg] = useState(false)
@@ -43,9 +43,9 @@ function ReactMap() {
   }, [shipWrecks, shipWrecks2, depth])
 
   const variables = {
-      filters: {
-        'depth': depth
-      }
+		filters: {
+			depth: depth.map((d) => (d < 0 ? d * -1 : d)),
+		}
   }
 
   const getShipWrecks = async () => {
@@ -68,8 +68,8 @@ function ReactMap() {
   const filterDepth = (ships) => {
     return ships.filter(
 			(s) => 
-				s.depth >= variables.filters.depth[0] &&
-        s.depth <= variables.filters.depth[1])
+				s.depth >= variables.filters.depth[1] &&
+        s.depth <= variables.filters.depth[0])
   }
 
   const filterDepth2 = (ships) => {
@@ -78,8 +78,8 @@ function ReactMap() {
 		)
     return ships.features.filter(
 			(s) => 
-				s.properties.Depth >= variables.filters.depth[0] &&
-        s.properties.Depth <= variables.filters.depth[1]
+				s.properties.Depth >= variables.filters.depth[1] &&
+        s.properties.Depth <= variables.filters.depth[0]
 		)
   }
 
