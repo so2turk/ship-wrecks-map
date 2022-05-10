@@ -33,16 +33,22 @@ const MarkerPopup = ({ db, sw, selectedShipId, setSelectedShipId, viewState }) =
       }
   }
 
-  const handlePopupCard = () => shipWreck.popupCard.forEach((p, i) => (
-    <div className='popupCard' key={i}>
-        <span>
-          <label>
-            {console.log(Object.keys(p))}:
-          </label>
-          {p[i]}
-        </span>
-    </div>
-  ))
+  const handlePopupCard = () => shipWreck.popupCard.map((p, i) => {
+
+		return (
+			<div className='popupCard' key={i}>
+				<span>
+					<label>{Object.keys(p)}:</label>
+					{Object.keys(p)[0].includes('Image') &&
+					p[Object.keys(p)] !== null ? (
+						<a href={p[Object.keys(p)]}>Image</a>
+					) : (
+						p[Object.keys(p)]
+					)}        
+				</span>
+			</div>
+		)
+	})
 
   const handleMarkerSelect = (id) => {
     try{
@@ -77,7 +83,7 @@ const MarkerPopup = ({ db, sw, selectedShipId, setSelectedShipId, viewState }) =
           closeButton={true}
           closeOnClick={false}
         >
-          {handlePopupCard()}
+					<div className="popupCard">{handlePopupCard()}</div>
         </Popup>
       )}
     </>
