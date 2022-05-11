@@ -15,7 +15,7 @@ Consuming shipwreck APIs from all around the world
 - Michigan Shipwrecks data from <a href='https://storymaps.arcgis.com/stories/a7910b2eaa04450aaff93fa9de4821b8'>Michigan History Center</a>
 - MongoDB sample data
 
-<img width='800' src='https://im2.ezgif.com/tmp/ezgif-2-d3bae7b336.gif'>
+<img width='800' src='https://i.imgur.com/Ca8XvDI.gif'>
 
 ## So far
 
